@@ -33,9 +33,8 @@ class Solution {
     }
 
     private boolean areSame(int[] arr1, int[] arr2, String p) {
-        for (int i = 0; i < p.length(); i++) {
-            int ind = (int) p.charAt(i) - 'a';
-            if (arr1[ind] != arr2[ind]) {
+        for (int i = 0; i < 26; i++) {
+            if (arr1[i] != arr2[i]) {
                 return false;
             }
         }
