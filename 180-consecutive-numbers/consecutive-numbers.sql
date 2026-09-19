@@ -1,9 +1,13 @@
 # Write your MySQL query statement below
-SELECT DISTINCT l1.num AS ConsecutiveNums
-FROM logs l1
-JOIN logs l2
-    ON l2.id = l1.id + 1
-JOIN logs l3 
-    ON l3.id = l1.id + 2
-WHERE l1.num = l2.num
-    AND l2.num = l3.num;
+
+WITH cte AS (
+    SELECT num, 
+    LAG(num, 1) OVER(ORDER BY id) AS prev1,
+    LAG(num, 2) OVER(ORDER BY id) AS prev2
+    FROM logs
+)
+SELECT  DISTINCT
+    num AS ConsecutiveNums
+FROM cte
+WHERE num = prev1
+    AND num = prev2;
