@@ -13,17 +13,19 @@ class Solution {
         int i = 0;
         while(!q.isEmpty()) {
 
-            int need = q.poll();
+            int need = q.peek();
             int avail = sandwiches[i];
+
             if (needs[avail] == 0) {
-                q.add(need);
                 break;
             }
 
             if (need == avail) {
+                q.poll();
                 needs[avail]--;
                 i++;
-            } else if (need != avail) {
+            } else {
+                q.poll();
                 q.add(need);
             }
         }
