@@ -1,26 +1,24 @@
 class Solution {
     public boolean checkArray(int[] nums, int k) {
         int n = nums.length;
-        long[] diff = new long[n + 1];
 
-        long active = 0;
-
-        for (int i = 0; i < n; i++) {
-            active += diff[i];
-
-            long current = nums[i] - active;
-
-            if (current < 0) {
+        for (int i = n - 1; i >= 0; i--) {
+            if (nums[i] < 0) {
                 return false;
             }
 
-            if (current > 0) {
-                if (i + k > n) {
-                    return false;
-                }
+            if (nums[i] == 0) {
+                continue;
+            }
 
-                active += current;
-                diff[i + k] -= current;
+            if (i - k + 1 < 0) {
+                return false;
+            }
+
+            int operations = nums[i];
+
+            for (int j = i; j >= i - k + 1; j--) {
+                nums[j] -= operations;
             }
         }
 
